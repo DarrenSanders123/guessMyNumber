@@ -5,10 +5,9 @@ const message = $(`.message`),
     input = $(`.guess`),
     button = $(`.check`),
     againButton = $(`.again`),
-    highScore = $(`.highscore`);
+    highScore = $(`.highscore`),
+    background = $(`#background`);
 
-
-let background = $(`#background`);
 let correctNumber;
 
 function newNumber() {
@@ -17,15 +16,11 @@ function newNumber() {
 
 newNumber();
 
-button.on('click', function () {
-    checkNumber();
-});
+button.on('click', () => checkNumber());
 
 againButton.on('click', function () {
     reset();
-    button.on('click', function () {
-        checkNumber();
-    });
+    button.on('click', () => checkNumber());
 });
 
 function reset() {
@@ -33,7 +28,9 @@ function reset() {
     input.val('');
     score.text('20');
     message.text('Start guessing...');
+
     newNumber();
+
     background.css('background-color', '#222');
     number.css('width', '15rem');
     button.css('background-color', '#eee')
@@ -41,12 +38,14 @@ function reset() {
 }
 
 function won() {
-    const oldHighScore = highScore.text();
-    if (Number(oldHighScore) < Number(score.text())) {
-        highScore.text(Number(score.text()));
+    let scoreN = Number(score.text());
+
+    if (Number(highScore.text()) < scoreN) {
+        highScore.text(scoreN);
     }
 
     button.off();
+
     background.css('background-color', '#60b347');
     button.css('background-color', '#b1b1b1')
     number.css('width', '30rem');
@@ -54,35 +53,28 @@ function won() {
 
 function lost() {
     score.text(Number(score.text()) - 1);
-
     background.addClass('flash');
 
-    setTimeout(function () {
-        background.removeClass('flash');
-    }, 600);
-
+    setTimeout(() => background.removeClass('flash'), 600);
 }
 
 function checkNumber() {
-    const inputNumber = input.val();
-
-    // const correctNumber = 10;
-    if (inputNumber < 0) {
-        message.text('Number has to be above 0!');
-    } else if (inputNumber > 20) {
-        message.text('Number has to be below 20!');
-    } else if (Number(inputNumber) > Number(correctNumber)) {
-        message.text('📈 Number to high!');
-        lost();
-    } else if (Number(inputNumber) < Number(correctNumber)) {
-        message.text('📉 Number to low!');
-        lost();
-    } else if (Number(inputNumber) === Number(correctNumber)) {
+    let inputNumber = Number(input.val());
+    if (inputNumber === correctNumber) {
         message.text('✔ Correct Number!');
         number.text(correctNumber);
         won();
+    } else if (inputNumber > 20) {
+        message.text('Number has to be below 20!');
+    } else if (inputNumber < 0) {
+        message.text('Number has to be above 0!');
+    } else if (score > 1) {
+        if (inputNumber !== correctNumber) {
+            message.text(inputNumber > correctNumber ? '📈 Number to high!' : '📉 Number to low!');
+            lost();
+        }
     } else {
-        message.text('❌ Incorrect Number!');
+        message.text('💥 You lost the game! STUPID');
         lost();
     }
 }
