@@ -35,6 +35,9 @@ function reset() {
     message.text('Start guessing...');
     newNumber();
     background.css('background-color', '#222');
+    number.css('width', '15rem');
+    button.css('background-color', 'inherit')
+
 }
 
 function won() {
@@ -45,6 +48,7 @@ function won() {
     button.off();
     background.css('background-color', '#60b347');
     button.css('background-color', '#b1b1b1')
+    number.css('width', '30rem');
 }
 
 function lost() {
