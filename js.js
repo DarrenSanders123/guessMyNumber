@@ -42,8 +42,9 @@ function reset() {
 
 function won() {
     const oldHighScore = highScore.text();
-    highScore.text(Number(score.text()) + Number(oldHighScore));
-
+    if (Number(oldHighScore) < Number(score.text())) {
+        highScore.text(Number(score.text()));
+    }
 
     button.off();
     background.css('background-color', '#60b347');
