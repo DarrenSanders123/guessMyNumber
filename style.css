@@ -18,6 +18,17 @@ body {
   /* background-color: #60b347; */
 }
 
+.flash {
+  animation: flash-red 500ms 0ms;
+}
+
+@keyframes flash-red {
+    0% { background-color: #222}
+    50% { background-color: red}
+    100% { background-color: #222}
+}
+
+
 /* LAYOUT */
 header {
   position: relative;

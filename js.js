@@ -14,13 +14,14 @@ let correctNumber;
 function newNumber() {
     correctNumber = Math.floor(Math.random() * 20) + 1;
 }
+
 newNumber();
 
-button.on('click', function() {
+button.on('click', function () {
     checkNumber();
 });
 
-againButton.on('click', function() {
+againButton.on('click', function () {
     reset();
     button.on('click', function () {
         checkNumber();
@@ -47,8 +48,14 @@ function won() {
 }
 
 function lost() {
-    const oldScore = score.text();
     score.text(Number(score.text()) - 1);
+
+    background.addClass('flash');
+
+    setTimeout(function () {
+        background.removeClass('flash');
+    }, 600);
+
 }
 
 function checkNumber() {
