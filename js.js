@@ -36,7 +36,7 @@ function reset() {
     newNumber();
     background.css('background-color', '#222');
     number.css('width', '15rem');
-    button.css('background-color', 'inherit')
+    button.css('background-color', '#eee')
 
 }
 
