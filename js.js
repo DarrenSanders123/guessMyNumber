@@ -68,7 +68,7 @@ function checkNumber() {
         message.text('Number has to be below 20!');
     } else if (inputNumber < 0) {
         message.text('Number has to be above 0!');
-    } else if (score > 1) {
+    } else if (Number(score.text()) > 1) {
         if (inputNumber !== correctNumber) {
             message.text(inputNumber > correctNumber ? '📈 Number to high!' : '📉 Number to low!');
             lost();
